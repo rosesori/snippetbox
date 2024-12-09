@@ -43,9 +43,9 @@ func main() {
 
 	/* Register the handler functions and corresponding route patterns with
 	the servemux */
-	mux.HandleFunc("/{$}", home) // Restrict this route to exact matches on / only.
-	mux.HandleFunc("/snippet/view/{id}", snippetView)
-	mux.HandleFunc("/snippet/create", snippetCreate)
+	mux.HandleFunc("GET /{$}", home) // Restrict this route to exact matches on / only.
+	mux.HandleFunc("GET /snippet/view/{id}", snippetView)
+	mux.HandleFunc("GET /snippet/create", snippetCreate)
 
 	// Print a log message to say that the server is starting.
 	log.Print("Starting server on :4000")
