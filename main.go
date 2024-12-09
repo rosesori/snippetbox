@@ -12,7 +12,7 @@ func home(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Hello from Snippetbox!"))
 }
 
-// Add a snippetView handler function.
+// Display a specific snippet
 func snippetView(w http.ResponseWriter, r *http.Request) {
 	// Extract the value of the id wildcard from the request using r.PathValue()
 	// Try to convert id to an integer using strconv.Atoi()
@@ -29,9 +29,14 @@ func snippetView(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(msg))
 }
 
-// Add a snipperCreate handler function
+// Display a form for creating a new snippet
 func snippetCreate(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Display a form for creating a new snippet..."))
+}
+
+// Save a new snippet
+func snippetCreatePost(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("Save a new snippet..."))
 }
 
 func main() {
@@ -46,6 +51,7 @@ func main() {
 	mux.HandleFunc("GET /{$}", home) // Restrict this route to exact matches on / only.
 	mux.HandleFunc("GET /snippet/view/{id}", snippetView)
 	mux.HandleFunc("GET /snippet/create", snippetCreate)
+	mux.HandleFunc("POST /snippet/create", snippetCreatePost)
 
 	// Print a log message to say that the server is starting.
 	log.Print("Starting server on :4000")
