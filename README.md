@@ -1,7 +1,8 @@
 # Snippetbox
 
-This repository follows the exercises from the book "Let's Go" by Alex Edwards
-to create a SnippetBox application.
+Snippetbox is a web application which lets people paste and share snippetes of text (like [GitHub Gists](https://gist.github.com/) or [Pastebin](https://pastebin.com/).
+
+This project was made by following the exercises from the book ["Let's Go" by Alex Edwards](https://lets-go.alexedwards.net/).
 
 ## Development
 
