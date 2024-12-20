@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"html/template"
+	"log"
 	"net/http"
 	"strconv"
 )
@@ -11,7 +13,27 @@ func home(w http.ResponseWriter, r *http.Request) {
 	// Add a "Server: Go" header to the response
 	w.Header().Add("Server", "Go")
 
-	w.Write([]byte("Hello from Snippetbox!"))
+	/* Use the template.ParseFiles() function to read the template file into a
+	template set. */
+	ts, err := template.ParseFiles("./ui/html/home.page.tmpl")
+	if err != nil {
+		// Log the details error message
+		log.Print(err.Error())
+		/* Use http.Error() function to send an Internal Server Error response
+		to the user */
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		// Return from the handler so no subsequent code is exected.
+		return
+	}
+	// Then we use the Execute() method on the template set to write the
+	// template content as the response body. The last parameter to Execute()
+	// represents any dynamic data that we want to pass in, which for now we'll
+	// leave as nil.
+	err = ts.Execute(w, nil)
+	if err != nil {
+		log.Print(err.Error())
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+	}
 }
 
 // Display a specific snippet
