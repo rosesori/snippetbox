@@ -11,7 +11,7 @@ This project was made by following the exercises from the book ["Let's Go" by Al
 To run the application locally, run the following command:
 
 ```bash
-go run .
+go run ./cmd/web
 ```
 
 ### Project structure
