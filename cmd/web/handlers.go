@@ -22,7 +22,7 @@ func home(w http.ResponseWriter, r *http.Request) {
 		/* Use http.Error() function to send an Internal Server Error response
 		to the user */
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-		// Return from the handler so no subsequent code is exected.
+		// Return from the handler so no subsequent code is executed.
 		return
 	}
 	// Then we use the Execute() method on the template set to write the
