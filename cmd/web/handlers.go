@@ -17,9 +17,9 @@ func home(w http.ResponseWriter, r *http.Request) {
 	to note that the file containing our base template must be the *first* file
 	in the slice */
 	files := []string{
-		"./ui/html/base.tmpl.html",
-		"./ui/html/pages/home.tmpl.html",
+		"./ui/html/base.gohtml",
 		"./ui/html/partials/nav.gohtml",
+		"./ui/html/pages/home.gohtml",
 	}
 
 	/* Use the template.ParseFiles() function to read the files and store the
@@ -50,8 +50,7 @@ func snippetView(w http.ResponseWriter, r *http.Request) {
 	// Try to convert id to an integer using strconv.Atoi()
 	id, err := strconv.Atoi(r.PathValue("id"))
 
-	// If cannot be converted to an integer,
-	// or the value is less than 1, return 404
+	// If it cannot be converted to an integer, or the value is less than 1, return 404
 	if err != nil || id < 1 {
 		http.NotFound(w, r)
 		return
