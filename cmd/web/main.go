@@ -1,11 +1,20 @@
 package main
 
 import (
+	"flag"
 	"log"
 	"net/http"
 )
 
 func main() {
+	/* Define a new command line flag with the name "addr", a default
+	value of ":4000", and a short description. */
+	addr := flag.String("addr", ":4000", "HTTP network address")
+
+	/* Use the flag.Parse() function to parse the command-line flag.
+	This reads in the command line flag value and assigns it to the addr variable.*/
+	flag.Parse()
+
 	/* Use the http.NewServeMux() function to initialize a new servemux.
 	A servemux (aka a router) stores a mapping between URL routing patterns
 	for your application and the corresponding handlers. Usually you have 1
@@ -29,8 +38,10 @@ func main() {
 	mux.HandleFunc("GET /snippet/create", snippetCreate)
 	mux.HandleFunc("POST /snippet/create", snippetCreatePost)
 
-	// Print a log message to say that the server is starting.
-	log.Print("starting server on :4000")
+	/* Print a log message to say that the server is starting.
+	The value returned from flag.String() is a pointer to the flag value,
+	so we need to dereference the pointer. */
+	log.Printf("starting server on %s", *addr)
 
 	/* Use the http.ListenAndServe() function to start a new web server.
 	We pass in two parameters:
@@ -39,6 +50,6 @@ func main() {
 	If http.ListenAndServe() returns an error, we use the log.Fatal() function
 	to log the error message and exit. Note that any error returned by
 	http.ListenAndServe() will always be non-nil. */
-	err := http.ListenAndServe(":4000", mux)
+	err := http.ListenAndServe(*addr, mux)
 	log.Fatal(err)
 }
