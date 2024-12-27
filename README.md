@@ -11,7 +11,17 @@ This project was made by following the exercises from the book ["Let's Go" by Al
 To run the application locally, run the following command:
 
 ```bash
-go run ./cmd/web
+$ go run ./cmd/web
+```
+
+Add the `-help` flag to see the available command-line flags:
+
+```bash
+$ go run ./cmd/web -help
+
+Usage of /var/folders/my/mq4mv0s15kj_2x85csjvwl_40000gn/T/go-build4245412781/b001/exe/web:
+  -addr string
+        HTTP network address (default ":4000")
 ```
 
 ### Project structure
