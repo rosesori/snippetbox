@@ -18,7 +18,9 @@ func main() {
 
 	/* Initialize a new structured logger which writes to the standard out
 	stream and uses the default settings. */
-	logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
+	logger := slog.New(slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{
+		AddSource: true,
+	}))
 
 	/* Use the http.NewServeMux() function to initialize a new servemux.
 	A servemux (aka a router) stores a mapping between URL routing patterns
