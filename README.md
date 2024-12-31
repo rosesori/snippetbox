@@ -33,3 +33,4 @@ Usage of /var/folders/my/mq4mv0s15kj_2x85csjvwl_40000gn/T/go-build4245412781/b00
 - `ui` directory contains the user-interface assets used by the web applciation
   - `ui/html` contains HTML templates
   - `ui/static` contains static files (like CSS and images)
+
