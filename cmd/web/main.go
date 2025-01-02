@@ -7,6 +7,11 @@ import (
 	"os"
 )
 
+// Define an application struct to hold the application-wide dependencies
+type application struct {
+	logger *slog.Logger
+}
+
 func main() {
 	/* Define a new command line flag with the name "addr", a default
 	value of ":4000", and a short description. */
@@ -21,6 +26,10 @@ func main() {
 	logger := slog.New(slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{
 		AddSource: true,
 	}))
+
+	/* Initialize a new instance of the application struct containing the
+	dependencies */
+	app := &application{logger: logger}
 
 	/* Use the http.NewServeMux() function to initialize a new servemux.
 	A servemux (aka a router) stores a mapping between URL routing patterns
@@ -40,10 +49,10 @@ func main() {
 
 	/* Register the handler functions and corresponding route patterns with
 	the servemux */
-	mux.HandleFunc("GET /{$}", home)
-	mux.HandleFunc("GET /snippert/view/{id}", snippetView)
-	mux.HandleFunc("GET /snippet/create", snippetCreate)
-	mux.HandleFunc("POST /snippet/create", snippetCreatePost)
+	mux.HandleFunc("GET /{$}", app.home)
+	mux.HandleFunc("GET /snippert/view/{id}", app.snippetView)
+	mux.HandleFunc("GET /snippet/create", app.snippetCreate)
+	mux.HandleFunc("POST /snippet/create", app.snippetCreatePost)
 
 	/* Print a log message to say that the server is starting.
 	The value returned from flag.String() is a pointer to the flag value,

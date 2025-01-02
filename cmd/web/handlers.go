@@ -3,13 +3,12 @@ package main
 import (
 	"fmt"
 	"html/template"
-	"log"
 	"net/http"
 	"strconv"
 )
 
 // Display the home page
-func home(w http.ResponseWriter, r *http.Request) {
+func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	// Add a "Server: Go" header to the response
 	w.Header().Add("Server", "Go")
 
@@ -27,8 +26,8 @@ func home(w http.ResponseWriter, r *http.Request) {
 	the files slice as  variadic arguments */
 	ts, err := template.ParseFiles(files...)
 	if err != nil {
-		// Log the details error message
-		log.Print(err.Error())
+		// Log the details of the error message
+		app.logger.Error(err.Error(), "method", r.Method, "uri", r.URL.RequestURI())
 		/* Use http.Error() function to send an Internal Server Error response
 		to the user */
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
@@ -39,13 +38,13 @@ func home(w http.ResponseWriter, r *http.Request) {
 	template as the response body */
 	err = ts.ExecuteTemplate(w, "base", nil)
 	if err != nil {
-		log.Print(err.Error())
+		app.logger.Error(err.Error(), "method, r.Method", "uri", r.URL.RequestURI())
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 	}
 }
 
 // Display a specific snippet
-func snippetView(w http.ResponseWriter, r *http.Request) {
+func (app *application) snippetView(w http.ResponseWriter, r *http.Request) {
 	// Extract the value of the id wildcard from the request using r.PathValue()
 	// Try to convert id to an integer using strconv.Atoi()
 	id, err := strconv.Atoi(r.PathValue("id"))
@@ -60,12 +59,12 @@ func snippetView(w http.ResponseWriter, r *http.Request) {
 }
 
 // Display a form for creating a new snippet
-func snippetCreate(w http.ResponseWriter, r *http.Request) {
+func (app *application) snippetCreate(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Display a form for creating a new snippet..."))
 }
 
 // Save a new snippet
-func snippetCreatePost(w http.ResponseWriter, r *http.Request) {
+func (app *application) snippetCreatePost(w http.ResponseWriter, r *http.Request) {
 	// Use the w.WriteHeader() method to send a 201 status code.
 	w.WriteHeader(http.StatusCreated)
 
