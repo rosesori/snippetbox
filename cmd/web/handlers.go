@@ -26,10 +26,10 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	the files slice as  variadic arguments */
 	ts, err := template.ParseFiles(files...)
 	if err != nil {
-		// Return from the handler so no subsequent code is executed.
-		return
 		app.serverError(w, r, err)
+		return // Return from the handler so no subsequent code is executed.
 	}
+
 	/* Use the ExecuteTemplate() method to write the content of the "base"
 	template as the response body */
 	err = ts.ExecuteTemplate(w, "base", nil)
