@@ -12,6 +12,12 @@ type application struct {
 	logger *slog.Logger
 }
 
+/*
+	 We've limited the responsibilities of the main() function to be:
+		- Parsing the runtime configuration settings for the application
+		- Establishing the dependencies for the handlers
+		- Starting the HTTP server
+*/
 func main() {
 	/* Define a new command line flag with the name "addr", a default
 	value of ":4000", and a short description. */
@@ -31,31 +37,7 @@ func main() {
 	dependencies */
 	app := &application{logger: logger}
 
-	/* Use the http.NewServeMux() function to initialize a new servemux.
-	A servemux (aka a router) stores a mapping between URL routing patterns
-	for your application and the corresponding handlers. Usually you have 1
-	servemux for your application containing all your routes. */
-	mux := http.NewServeMux()
-
-	/* Create a file server which serves files out of the "./ui/static" directory.
-	Note that the path given to the http.Dir function is relative to the project
-	directory root. */
-	fileServer := http.FileServer(http.Dir("./ui/static/"))
-
-	/* Use the mux.Handle() function to register the file server as the handler
-	for all URL paths that start with "/static/". For matching paths, we strip
-	the "/static" prefix before the request reaches the file server */
-	mux.Handle("GET /static/", http.StripPrefix("/static", fileServer))
-
-	/* Register the handler functions and corresponding route patterns with
-	the servemux */
-	mux.HandleFunc("GET /{$}", app.home)
-	mux.HandleFunc("GET /snippert/view/{id}", app.snippetView)
-	mux.HandleFunc("GET /snippet/create", app.snippetCreate)
-	mux.HandleFunc("POST /snippet/create", app.snippetCreatePost)
-
-	/* Print a log message to say that the server is starting.
-	The value returned from flag.String() is a pointer to the flag value,
+	/* The value returned from flag.String() is a pointer to the flag value,
 	so we need to dereference the pointer. */
 	logger.Info("starting server", "addr", *addr)
 
