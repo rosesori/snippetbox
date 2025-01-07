@@ -23,7 +23,7 @@ type application struct {
 func main() {
 	// Define command line flags
 	addr := flag.String("addr", ":4000", "HTTP network address")
-	dsn := flag.String("dsn", "web:pass@/snippetbox?parseTime=true", "MySQL data source name")
+	dsn := flag.String("dsn", "web:initialpass@/snippetbox?parseTime=true", "MySQL data source name")
 
 	/* Use the flag.Parse() function to parse the command-line flag.
 	This reads in the command line flag values and assign them to corresponding variables .*/
