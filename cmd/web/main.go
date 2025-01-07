@@ -19,8 +19,7 @@ type application struct {
 		- Starting the HTTP server
 */
 func main() {
-	/* Define a new command line flag with the name "addr", a default
-	value of ":4000", and a short description. */
+	// Define command line flags
 	addr := flag.String("addr", ":4000", "HTTP network address")
 
 	/* Use the flag.Parse() function to parse the command-line flag.
