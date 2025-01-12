@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"flag"
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/rosesori/snippetbox/internal/models"
 	"log/slog"
 	"net/http"
 	"os"
@@ -11,7 +12,8 @@ import (
 
 // Define an application struct to hold the application-wide dependencies
 type application struct {
-	logger *slog.Logger
+	logger   *slog.Logger
+	snippets *models.SnippetModel
 }
 
 /*
@@ -44,8 +46,13 @@ func main() {
 	defer db.Close()
 
 	/* Initialize a new instance of the application struct containing the
-	dependencies */
-	app := &application{logger: logger}
+	dependencies.
+	snippets is a models.SnippetModel instance containing the connection pool.
+	*/
+	app := &application{
+		logger:   logger,
+		snippets: &models.SnippetModel{DB: db},
+	}
 
 	/* The value returned from flag.String() is a pointer to the flag value,
 	so we need to dereference the pointer. */
