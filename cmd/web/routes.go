@@ -19,7 +19,7 @@ func (app *application) routes() *http.ServeMux {
 	/* Register the handler functions and corresponding route patterns with
 	the servemux */
 	mux.HandleFunc("GET /{$}", app.home)
-	mux.HandleFunc("GET /snippert/view/{id}", app.snippetView)
+	mux.HandleFunc("GET /snippet/view/{id}", app.snippetView)
 	mux.HandleFunc("GET /snippet/create", app.snippetCreate)
 	mux.HandleFunc("POST /snippet/create", app.snippetCreatePost)
 
