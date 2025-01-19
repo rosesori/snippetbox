@@ -58,6 +58,8 @@ func (m *SnippetModel) Get(id int) (Snippet, error) {
 		// If the query returns no rows, then row.Scan() will return a
 		// sql.ErrNoRows error
 		if errors.Is(err, sql.ErrNoRows) {
+			// Encapsulate the model completely instead of returning sql.ErrNoRows
+			// so that our handlers aren't concerned with the underlying database
 			return Snippet{}, ErrNoRecord
 		} else {
 			return Snippet{}, err
