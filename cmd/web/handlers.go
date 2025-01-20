@@ -1,6 +1,8 @@
 package main
 
 import (
+	"database/sql"
+	"errors"
 	"fmt"
 	"html/template"
 	"net/http"
@@ -42,15 +44,27 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 func (app *application) snippetView(w http.ResponseWriter, r *http.Request) {
 	// Extract the value of the id wildcard from the request using r.PathValue()
 	// Try to convert id to an integer using strconv.Atoi()
-	id, err := strconv.Atoi(r.PathValue("id"))
-
 	// If it cannot be converted to an integer, or the value is less than 1, return 404
+	id, err := strconv.Atoi(r.PathValue("id"))
 	if err != nil || id < 1 {
 		http.NotFound(w, r)
 		return
 	}
 
-	fmt.Fprintf(w, "Display a specific snipper with ID %d...", id)
+	// Use the SnippetModel.Get() method to retrieve the data for a specific record based on its ID
+	// Return 404 Not Found if no matching record is found
+	snippet, err := app.snippets.Get(id)
+	if err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			http.NotFound(w, r)
+		} else {
+			app.serverError(w, r, err)
+		}
+		return
+	}
+
+	// Write the snippet data as a plain-text HTTP response body
+	fmt.Fprintf(w, "%+v", snippet)
 }
 
 // Display a form for creating a new snippet
