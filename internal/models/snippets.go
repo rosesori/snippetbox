@@ -88,8 +88,11 @@ func (m *SnippetModel) Latest() ([]Snippet, error) {
 	var snippets []Snippet
 
 	for rows.Next() {
-		var s Snippet
+		var s Snippet // a new zeroed Snippet struct
 
+		// Copy the vlaues from each field in the row to the new Snippet object.
+		// Arguments to row.Scan() must be pointers to the place you want to copy
+		// the data into.
 		err = rows.Scan(&s.ID, &s.Title, &s.Content, &s.Created, &s.Expires)
 		if err != nil {
 			return nil, err
