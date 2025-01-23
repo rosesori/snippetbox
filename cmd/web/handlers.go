@@ -4,15 +4,25 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
-	"html/template"
 	"net/http"
 	"strconv"
+	"text/template"
 )
 
 // Display the home page
 func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	// Add a "Server: Go" header to the response
 	w.Header().Add("Server", "Go")
+
+	// snippets, err := app.snippets.Latest()
+	// if err != nil {
+	// 	app.serverError(w, r, err)
+	// 	return
+	// }
+
+	// for _, snippet := range snippets {
+	// 	fmt.Fprintf(w, "%+v\n", snippet)
+	// }
 
 	/* Initialize a slice containing the paths to the two files. It's important
 	to note that the file containing our base template must be the *first* file
