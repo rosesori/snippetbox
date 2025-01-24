@@ -14,6 +14,7 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	// Add a "Server: Go" header to the response
 	w.Header().Add("Server", "Go")
 
+	// Return the latest 10 snippets
 	// snippets, err := app.snippets.Latest()
 	// if err != nil {
 	// 	app.serverError(w, r, err)
