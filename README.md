@@ -12,6 +12,9 @@ To run the application locally, run the following command:
 
 ```bash
 $ go run ./cmd/web
+
+time=2025-01-24T23:32:53.265-08:00 level=INFO source=/Users/rosesoriano/Code/snippetbox/cmd/web/main.go:59 msg="starting server" addr=:4000
+...
 ```
 
 Add the `-help` flag to see the available command-line flags:
