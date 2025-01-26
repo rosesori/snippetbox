@@ -74,6 +74,26 @@ func (app *application) snippetView(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Slice with paths to the view.tmpl file
+	files := []stirng{
+		"./ui/html/base.gohtml",
+		"./ui/html/partials/nav.gohtml",
+		"./ui/html/pages/view.gohtml",
+	}
+
+	// Parse the template files
+	ts, err := template.ParseFiles(files...)
+	if err != nil {
+		app.serverError(w, r, err)
+		return
+	}
+
+	// Execute the template set, passing in the snippet data
+	err = ts.ExecuteTemplate(w, "base", snippet)
+	if err != nil {
+		app.serverError(w, r, err)
+	}
+
 	// Write the snippet data as a plain-text HTTP response body
 	fmt.Fprintf(w, "%+v", snippet)
 }
