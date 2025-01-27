@@ -75,7 +75,7 @@ func (app *application) snippetView(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Slice with paths to the view.tmpl file
-	files := []stirng{
+	files := []string{
 		"./ui/html/base.gohtml",
 		"./ui/html/partials/nav.gohtml",
 		"./ui/html/pages/view.gohtml",
