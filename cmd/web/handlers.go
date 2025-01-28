@@ -74,7 +74,7 @@ func (app *application) snippetView(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Slice with paths to the view.tmpl file
+	// Slice with paths to the view.tmpl file plus the base layout and nav partial
 	files := []string{
 		"./ui/html/base.gohtml",
 		"./ui/html/partials/nav.gohtml",
