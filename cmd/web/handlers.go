@@ -89,6 +89,8 @@ func (app *application) snippetView(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Execute the template set, passing in the snippet data
+	// The snippet data passed into ts.ExecuteTemplate() is represented within
+	// the HTML template by the . character
 	err = ts.ExecuteTemplate(w, "base", snippet)
 	if err != nil {
 		app.serverError(w, r, err)
