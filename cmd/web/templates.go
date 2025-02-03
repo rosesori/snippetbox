@@ -1,6 +1,6 @@
 package main
 
-import "snippetbox.alexedwards.net/internal/models"
+import "github.com/rosesori/snippetbox/internal/models"
 
 /*
 Define a templateData type to act as the holding structure for any dynamic data
