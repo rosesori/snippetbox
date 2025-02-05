@@ -88,16 +88,16 @@ func (app *application) snippetView(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Execute the template set, passing in the snippet data
-	// The snippet data passed into ts.ExecuteTemplate() is represented within
-	// the HTML template by the . character
-	err = ts.ExecuteTemplate(w, "base", snippet)
+	// Create an instance of a templateData struct holding the snippet data
+	data := templateData{
+		Snippet: snippet,
+	}
+
+	// Execute the template set, passing in the templateData struct
+	err = ts.ExecuteTemplate(w, "base", data)
 	if err != nil {
 		app.serverError(w, r, err)
 	}
-
-	// Write the snippet data as a plain-text HTTP response body
-	fmt.Fprintf(w, "%+v", snippet)
 }
 
 // Display a form for creating a new snippet
