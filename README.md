@@ -2,7 +2,7 @@
 
 Snippetbox is a web application which lets people paste and share snippets of text like [GitHub Gists](https://gist.github.com/) or [Pastebin](https://pastebin.com/).
 
-This project was made by following the exercises from the book ["Let's Go" by Alex Edwards](https://lets-go.alexedwards.net/).
+This project was made by following the exercises from the book ["Let's Go" by Alex Edwards](https://lets-go.alexedwards.net/). Some comments taken from the book for educational documentation.
 
 ## Development
 
