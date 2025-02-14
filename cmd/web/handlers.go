@@ -14,16 +14,11 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	// Add a "Server: Go" header to the response
 	w.Header().Add("Server", "Go")
 
-	// Return the latest 10 snippets
-	// snippets, err := app.snippets.Latest()
-	// if err != nil {
-	// 	app.serverError(w, r, err)
-	// 	return
-	// }
-
-	// for _, snippet := range snippets {
-	// 	fmt.Fprintf(w, "%+v\n", snippet)
-	// }
+	snippets, err := app.snippets.Latest()
+	if err != nil {
+		app.serverError(w, r, err)
+		return
+	}
 
 	/* Initialize a slice containing the paths to the two files. It's important
 	to note that the file containing our base template must be the *first* file
@@ -43,9 +38,15 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 		return // Return from the handler so no subsequent code is executed.
 	}
 
+	// Create an instance of a templateData struct holding the slice of snippets
+	data := templateData{
+		Snippets: snippets,
+	}
+
 	/* Use the ExecuteTemplate() method to write the content of the "base"
-	template as the response body */
-	err = ts.ExecuteTemplate(w, "base", nil)
+	template as the response body. Pass in the templateData struct when
+	executing the template. */
+	err = ts.ExecuteTemplate(w, "base", data)
 	if err != nil {
 		app.serverError(w, r, err)
 	}
