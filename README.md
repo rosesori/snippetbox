@@ -27,7 +27,7 @@ Usage of /var/folders/my/mq4mv0s15kj_2x85csjvwl_40000gn/T/go-build4245412781/b00
         HTTP network address (default ":4000")
 ```
 
-To launch the MySQL Command-Line Client, run the following and enter the password:
+To launch the MySQL Command-Line Client, run the following, and enter your password:
 
 ```bash
 $ mysql -D snippetbox -u web -p
